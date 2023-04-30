@@ -1,6 +1,4 @@
 import zlib
-#@maggie 我们开了个tempchat.txt
-#是txt！！！！
 
 class Package:
     def __init__(self):
@@ -38,8 +36,9 @@ class Package:
 
 
 class Socket:
-    def __init__(self, socket):
+    def __init__(self, socket, ziplevel=6):
         self.socket = socket
+        self.ziplevel = ziplevel
 
     def recv(self, size):
         data = self.socket.recv(size)
@@ -48,9 +47,9 @@ class Socket:
         temp = Package()
         return temp.decode(data)
 
-    def send(self, data, ziplevel=6):
+    def send(self, data):
         temp = Package()
-        zipped = temp.encode(data, ziplevel)
+        zipped = temp.encode(data, self.ziplevel)
         return self.socket.send(zipped)
 
     @property
